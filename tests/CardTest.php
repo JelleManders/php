@@ -1,5 +1,7 @@
 <?php
 
+require_once('BaseTest.php');
+
 class CardTest extends BaseTest
 {
     const TEST_CREATE_ARGUMENTS     = array(

@@ -1,5 +1,7 @@
 <?php
 
+require_once('BaseTest.php');
+
 class TransactionTest extends BaseTest
 {
     const TEST_TRANSACTION_ID       = '';
@@ -40,6 +42,7 @@ class TransactionTest extends BaseTest
         $transaction = $this->client->transaction->getTransactionById(static::TEST_TRANSACTION_ID);
 
         $this->assertTrue($transaction !== null);
+        $this->assertNotNull($transaction->_id);
     }
 
     public function testGetTransactionByIdReturnsTransactionInstance()

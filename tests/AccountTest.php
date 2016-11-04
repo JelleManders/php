@@ -1,5 +1,7 @@
 <?php
 
+require_once('BaseTest.php');
+
 class AccountTest extends BaseTest
 {
     public function testGetAllAccounts()

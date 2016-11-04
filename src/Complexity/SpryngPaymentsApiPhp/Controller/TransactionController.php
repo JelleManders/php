@@ -121,7 +121,7 @@ class TransactionController extends BaseController
 
         if (count($jsonResponse) > 0)
         {
-            $transaction = TransactionHelper::fillTransaction($jsonResponse);
+            $transaction = TransactionHelper::fillTransaction($jsonResponse[0]);
         }
         else
         {
