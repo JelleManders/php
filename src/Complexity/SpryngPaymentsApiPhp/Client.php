@@ -10,6 +10,9 @@ namespace SpryngPaymentsApiPhp;
 
 use SpryngPaymentsApiPhp\Controller\AccountController;
 use SpryngPaymentsApiPhp\Controller\CardController;
+use SpryngPaymentsApiPhp\Controller\iDealController;
+use SpryngPaymentsApiPhp\Controller\PaypalController;
+use SpryngPaymentsApiPhp\Controller\SepaController;
 use SpryngPaymentsApiPhp\Controller\TransactionController;
 
 class Client
@@ -46,6 +49,27 @@ class Client
     public $account;
 
     /**
+     * Public instance of the iDeal Controller
+     *
+     * @var iDealController
+     */
+    public $iDeal;
+
+    /**
+     * Public instance of the Paypal Controller
+     *
+     * @var PaypalController
+     */
+    public $Paypal;
+
+    /**
+     * Public instance of the Sepa Controller
+     *
+     * @var SepaController
+     */
+    public $Sepa;
+
+    /**
      * API key to authenticate user
      *
      * @var string
@@ -72,6 +96,9 @@ class Client
         $this->transaction  = new TransactionController($this);
         $this->card         = new CardController($this);
         $this->account      = new AccountController($this);
+        $this->iDeal        = new iDealController($this);
+        $this->Paypal       = new PaypalController($this);
+        $this->Sepa         = new SepaController($this);
     }
 
     /**

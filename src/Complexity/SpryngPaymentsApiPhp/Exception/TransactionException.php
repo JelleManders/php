@@ -15,4 +15,8 @@ class TransactionException extends SpryngPaymentsException
     const INVALID_TRANSACTION_ARGUMENTS = 203;
     const CUSTOMER_IP_IS_NOT_VALID      = 204;
     const USER_AGENT_INVALID_TYPE       = 205;
+    const REDIRECT_URL_NOT_FOUND        = 206;
+    const REDIRECT_URL_NOT_RUL          = 207;
+    const INVALID_IDEAL_ISSUER          = 208;
+    const CAPTURE_NOW_INVALID           = 209;
 }

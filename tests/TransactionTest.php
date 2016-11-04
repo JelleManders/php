@@ -1,13 +1,7 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
-use SpryngPaymentsApiPhp\Client;
-date_default_timezone_set('Europe/Amsterdam');
-
-class TransactionTest extends TestCase
+class TransactionTest extends BaseTest
 {
-    const TEST_API_KEY              = '';
-
     const TEST_TRANSACTION_ID       = '';
 
     const TEST_TRANSACTION_REFUND_ID = "";
@@ -23,18 +17,6 @@ class TransactionTest extends TestCase
         'payment_product'       => 'card',
         'user_agent'            => 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Win64; x64; Trident/6.0)'
     );
-
-    protected $client;
-
-    public function setUp()
-    {
-        $this->client = new Client(static::TEST_API_KEY, true);
-    }
-
-    public function testExceptionIsRaisedOnContruction()
-    {
-        $this->assertInstanceOf('SpryngPaymentsApiPhp\Client', $this->client);
-    }
 
     public function testGetAllTransactionsDoesNotReturnNull()
     {
