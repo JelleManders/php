@@ -4,6 +4,7 @@ namespace SpryngPaymentsApiPhp\Controller;
 
 use SpryngPaymentsApiPhp\Client;
 use SpryngPaymentsApiPhp\Helpers\SepaHelper;
+use SpryngPaymentsApiPhp\Helpers\TransactionHelper;
 use SpryngPaymentsApiPhp\Utility\RequestHandler;
 
 class SepaController extends BaseController
@@ -27,6 +28,8 @@ class SepaController extends BaseController
         $http->setPostParameters($arguments);
         $http->doRequest();
 
-        return json_decode($http->getResponse());
+        $transaction = TransactionHelper::fillTransaction(json_decode($http->getResponse()));
+
+        return $transaction;
     }
 }
