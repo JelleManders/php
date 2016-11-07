@@ -19,7 +19,7 @@ class Customer
      *
      * @var string
      */
-    public $customer_id;
+    public $_id;
 
     /**
      * A metadata field available for storing additional information in the customer object.

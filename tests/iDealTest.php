@@ -11,8 +11,8 @@ class iDealTest extends BaseTest
         'dynamic_descriptor' => 'Test iDeal Transaction',
         'user_agent' => 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Win64; x64; Trident/6.0)',
         'details' => [
+            'issuer' => 'INGBNL2A',
             'redirect_url' => 'https://spryngpayments.com/redirect/ideal',
-            'issuer' => 'INGBNL2A'
         ]
     );
 

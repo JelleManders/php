@@ -138,7 +138,7 @@ class Transaction
      *
      * @var array
      */
-    public $details = array();
+    public $details;
 
     /**
      * If available and enabled, the descriptor will appear on the customers statement. Your company name is prepended
