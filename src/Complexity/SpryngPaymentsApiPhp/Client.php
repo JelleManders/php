@@ -19,7 +19,7 @@ class Client
 {
     const CLIENT_VERSION = "1.0";
 
-    const API_ENDPOINT_PRODUCTION   = "https://spryngpayments.com/v1";
+    const API_ENDPOINT_PRODUCTION   = "https://api.spryngpayments.com/v1";
     const API_ENDPOINT_SANDBOX      = "https://sandbox.spryngpayments.com/v1";
 
     /**
