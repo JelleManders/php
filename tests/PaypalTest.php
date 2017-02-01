@@ -5,7 +5,7 @@ require_once('BaseTest.php');
 class PaypalTest extends BaseTest
 {
     const TEST_INITIATE_ARGUMENTS = array(
-        'account' => '',
+        'account' => self::TEST_ACCOUNT_ID,
         'amount' => 1000,
         'customer_ip' => '127.0.0.1',
         'dynamic_descriptor' => 'Test Paypal Transaction',

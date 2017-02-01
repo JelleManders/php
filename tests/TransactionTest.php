@@ -11,7 +11,7 @@ class TransactionTest extends BaseTest
     const REFUND_AMOUNT             = 1000;
 
     const TEST_CREATE_ARGUMENTS     = array(
-        'account'               => '',
+        'account'               => self::TEST_ACCOUNT_ID,
         'amount'                => '10000',
         'card'                  => '',
         'customer_ip'           => '127.0.0.1',

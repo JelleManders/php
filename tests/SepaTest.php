@@ -5,7 +5,7 @@ require_once('BaseTest.php');
 class SepaTest extends BaseTest
 {
     const TEST_INITIATE_ARGUMENTS = array(
-        'account' => '',
+        'account' => self::TEST_ACCOUNT_ID,
         'amount' => 1000,
         'customer' => '',
         'customer_ip' => '127.0.0.1',
@@ -16,10 +16,10 @@ class SepaTest extends BaseTest
         ]
     );
 
-    public function testInitiateiDealTransaction()
-    {
-        $transaction = $this->client->Sepa->initiate(static::TEST_INITIATE_ARGUMENTS);
-
-        $this->assertNotFalse(filter_var($transaction->details->approval_url, FILTER_VALIDATE_URL));
-    }
+//    public function testInitiateiDealTransaction()
+//    {
+//        $transaction = $this->client->Sepa->initiate(static::TEST_INITIATE_ARGUMENTS);
+//
+//        $this->assertNotFalse(filter_var($transaction->details->approval_url, FILTER_VALIDATE_URL));
+//    }
 }
