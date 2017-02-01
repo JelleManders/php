@@ -2,6 +2,7 @@
 
 namespace SpryngPaymentsApiPhp\Helpers;
 
+use SpryngPaymentsApiPhp\Exception\CustomerException;
 use SpryngPaymentsApiPhp\Object\Mandate;
 use SpryngPaymentsApiPhp\Object\Card;
 use SpryngPaymentsApiPhp\Object\Customer;
@@ -59,6 +60,49 @@ class CustomerHelper
 
     public static function validateNewCustomerArguments($arguments)
     {
+        if (!isset($arguments['title']))
+        {
+            throw new CustomerException("Title is required.", 502);
+        }
 
+        if (!isset($arguments['first_name']))
+        {
+            throw new CustomerException("First name is required.", 502);
+        }
+
+        if (!isset($arguments['last_name']))
+        {
+            throw new CustomerException("Last name is required.", 502);
+        }
+
+        if (!isset($arguments['email_address']))
+        {
+            throw new CustomerException("Email address is required.", 502);
+        }
+
+        if (!isset($arguments['country_code']))
+        {
+            throw new CustomerException("Country code is required.", 502);
+        }
+
+        if (!isset($arguments['city']))
+        {
+            throw new CustomerException("City is required.", 502);
+        }
+
+        if (!isset($arguments['street_address']))
+        {
+            throw new CustomerException("Street is required.", 502);
+        }
+
+        if (!isset($arguments['postal_code']))
+        {
+            throw new CustomerException("Postal code is required.", 502);
+        }
+
+        if (!isset($arguments['phone_number']))
+        {
+            throw new CustomerException("Phone number is required.", 502);
+        }
     }
 }
