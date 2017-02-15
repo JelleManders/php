@@ -12,13 +12,14 @@ use SpryngPaymentsApiPhp\Controller\CustomerController;
 use SpryngPaymentsApiPhp\Controller\AccountController;
 use SpryngPaymentsApiPhp\Controller\CardController;
 use SpryngPaymentsApiPhp\Controller\iDealController;
+use SpryngPaymentsApiPhp\Controller\KlarnaController;
 use SpryngPaymentsApiPhp\Controller\PaypalController;
 use SpryngPaymentsApiPhp\Controller\SepaController;
 use SpryngPaymentsApiPhp\Controller\TransactionController;
 
 class Client
 {
-    const CLIENT_VERSION = "1.0";
+    const CLIENT_VERSION = "1.1";
 
     const API_ENDPOINT_PRODUCTION   = "https://api.spryngpayments.com/v1";
     const API_ENDPOINT_SANDBOX      = "https://sandbox.spryngpayments.com/v1";
@@ -78,6 +79,13 @@ class Client
     public $Sepa;
 
     /**
+     * Public instance of the Klarna Controller
+     *
+     * @var
+     */
+    public $Klarna;
+
+    /**
      * API key to authenticate user
      *
      * @var string
@@ -108,6 +116,7 @@ class Client
         $this->iDeal        = new iDealController($this);
         $this->Paypal       = new PaypalController($this);
         $this->Sepa         = new SepaController($this);
+        $this->Klarna       = new KlarnaController($this);
     }
 
     /**

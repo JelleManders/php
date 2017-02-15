@@ -19,4 +19,5 @@ class TransactionException extends SpryngPaymentsException
     const REDIRECT_URL_NOT_RUL          = 207;
     const INVALID_IDEAL_ISSUER          = 208;
     const CAPTURE_NOW_INVALID           = 209;
+    const TRANSACTION_NOT_COMPLETE      = 210;
 }

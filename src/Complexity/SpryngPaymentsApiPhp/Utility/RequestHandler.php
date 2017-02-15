@@ -165,7 +165,7 @@ class RequestHandler
 
         $req = $this->httpClient->request('POST', $url, array(
             'headers'       => $this->getHeaders(),
-            'form_params'   => $this->getPostParameters()
+            'json'          => $this->getPostParameters()
         ));
 
         $this->setResponse((string) $req->getBody());
