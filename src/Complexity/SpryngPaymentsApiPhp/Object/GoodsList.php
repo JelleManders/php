@@ -38,6 +38,22 @@ class GoodsList
     }
 
     /**
+     * Calculates the total amount for this order.
+     *
+     * @return int
+     */
+    public function getTotalAmount()
+    {
+        $total = 0;
+        foreach ($this->goods as $good)
+        {
+            $total += $good->price;
+        }
+
+        return $total;
+    }
+
+    /**
      * Turns the goods list into a JSON string.
      *
      * @return string
