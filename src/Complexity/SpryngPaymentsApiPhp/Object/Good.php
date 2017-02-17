@@ -21,7 +21,15 @@ class Good
      * @param string $title
      * @param int $vat
      */
-    public function __construct($discount, array $flags, $price, $quantity, $reference, $title, $vat)
+    public function __construct(
+        $discount = null,
+        array $flags = null,
+        $price = null,
+        $quantity = null,
+        $reference = null,
+        $title = null,
+        $vat = null
+    )
     {
         $this->discount = $discount;
         $this->flags = $flags;
