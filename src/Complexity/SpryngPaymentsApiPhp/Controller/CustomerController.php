@@ -4,7 +4,6 @@ namespace SpryngPaymentsApiPhp\Controller;
 
 use SpryngPaymentsApiPhp\Client;
 use SpryngPaymentsApiPhp\Exception\CustomerException;
-use SpryngPaymentsApiPhp\Exception\RequestException;
 use SpryngPaymentsApiPhp\Helpers\CustomerHelper;
 use SpryngPaymentsApiPhp\Utility\RequestHandler;
 
@@ -50,14 +49,26 @@ class CustomerController extends BaseController
         $http->setQueryString(static::CUSTOMER_URI);
         $http->addHeader($this->api->getApiKey(), 'X-APIKEY');
         $http->setPostParameters($arguments, false);
-        try
-        {
-            $http->doRequest();
-        }
-        catch(RequestException $ex)
-        {
-            var_dump($ex->getMessage());
-        }
+        $http->doRequest();
+
+        $response = $http->getResponse();
+        $json = json_decode($response);
+        $newCustomer = CustomerHelper::fillCustomerObject($json);
+
+        return $newCustomer;
+    }
+
+    public function update($id, $arguments)
+    {
+        CustomerHelper::validateNewCustomerArguments($arguments);
+
+        $http = new RequestHandler();
+        $http->setHttpMethod("POST");
+        $http->setBaseUrl($this->api->getApiEndpoint());
+        $http->setQueryString(static::CUSTOMER_URI . '/' . $id);
+        $http->addHeader($this->api->getApiKey(), 'X-APIKEY');
+        $http->setPostParameters($arguments, false);
+        $http->doRequest();
 
         $response = $http->getResponse();
         $json = json_decode($response);

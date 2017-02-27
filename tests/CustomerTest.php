@@ -18,6 +18,8 @@ class CustomerTest extends BaseTest
         'phone_number'      => '+31612345678'
     );
 
+    private $createdCustomerId;
+
     public function testGetAccountById()
     {
         $customer = $this->client->customer->getCustomerById(self::TEST_CUSTOMER_ID);
@@ -28,6 +30,17 @@ class CustomerTest extends BaseTest
     public function testCreateCustomer()
     {
         $customer = $this->client->customer->create(self::TEST_CREATE_ARGUMENTS);
+
+        $this->assertInstanceOf('SpryngPaymentsApiPhp\Object\Customer', $customer);
+
+        $this->createdCustomerId = $customer->_id;
+    }
+
+    public function testUpdateCustomer()
+    {
+        $arguments = self::TEST_CREATE_ARGUMENTS;
+        $arguments['date_of_birth'] = '1990-01-01';
+        $customer = $this->client->customer->update($this->createdCustomerId, $arguments);
 
         $this->assertInstanceOf('SpryngPaymentsApiPhp\Object\Customer', $customer);
     }
