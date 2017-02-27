@@ -13,6 +13,7 @@ use SpryngPaymentsApiPhp\Controller\AccountController;
 use SpryngPaymentsApiPhp\Controller\CardController;
 use SpryngPaymentsApiPhp\Controller\iDealController;
 use SpryngPaymentsApiPhp\Controller\KlarnaController;
+use SpryngPaymentsApiPhp\Controller\OrganisationController;
 use SpryngPaymentsApiPhp\Controller\PaypalController;
 use SpryngPaymentsApiPhp\Controller\SepaController;
 use SpryngPaymentsApiPhp\Controller\TransactionController;
@@ -42,6 +43,13 @@ class Client
      * @var CardController
      */
     public $card;
+
+    /**
+     * Public instance of the Organisation Controller
+     *
+     * @var OrganisationController
+     */
+    public $organisation;
 
     /**
      * Public instance of the Account Controller
@@ -111,6 +119,7 @@ class Client
 
         $this->transaction  = new TransactionController($this);
         $this->card         = new CardController($this);
+        $this->organisation = new OrganisationController($this);
         $this->account      = new AccountController($this);
         $this->customer     = new CustomerController($this);
         $this->iDeal        = new iDealController($this);
