@@ -1,19 +1,12 @@
 <?php
 
 namespace SpryngPaymentsApiPhp\Helpers;
-use SpryngPaymentsApiPhp\Helper;
 use SpryngPaymentsApiPhp\Object\Account;
-use SpryngPaymentsApiPhp\Processors\EMS;
-use SpryngPaymentsApiPhp\Processors\GenericProcessor;
-use SpryngPaymentsApiPhp\Processors\Klarna;
-use SpryngPaymentsApiPhp\Processors\PayPal;
-use SpryngPaymentsApiPhp\Processors\SlimPay;
-
 /**
  * Class AccountHelper
  * @package SpryngPaymentsApiPhp
  */
-class AccountHelper extends Helper
+class AccountHelper
 {
 
     /**
@@ -26,7 +19,7 @@ class AccountHelper extends Helper
 
         foreach($jsonObject as $key => $parameter)
         {
-            if ( ! is_array($account->$key) )
+            if ( ! is_array($jsonObject->$key) )
             {
                 $account->$key = $parameter;
             }

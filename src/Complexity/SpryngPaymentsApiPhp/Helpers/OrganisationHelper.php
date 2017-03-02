@@ -2,10 +2,9 @@
 
 namespace SpryngPaymentsApiPhp\Helpers;
 
-use SpryngPaymentsApiPhp\Helper;
 use SpryngPaymentsApiPhp\Object\Organisation;
 
-class OrganisationHelper extends Helper
+class OrganisationHelper
 {
 
     /**
