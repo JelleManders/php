@@ -2,6 +2,8 @@
 
 namespace SpryngPaymentsApiPhp\Controller;
 
+use GuzzleHttp\Exception\ClientException;
+use SpryngPaymentsApiPhp\Exception\AccountException;
 use SpryngPaymentsApiPhp\Helpers\AccountHelper;
 use SpryngPaymentsApiPhp\Client;
 use SpryngPaymentsApiPhp\Utility\RequestHandler;
@@ -34,5 +36,45 @@ class AccountController extends BaseController
         }
 
         return $accounts;
+    }
+
+    /**
+     * Get an account instance based on it's ID
+     *
+     * @param $id
+     * @return mixed
+     * @throws AccountException
+     */
+    public function getAccountById($id)
+    {
+        $http = new RequestHandler();
+        $http->setHttpMethod("GET");
+        $http->setBaseUrl($this->api->getApiEndpoint());
+        $http->setQueryString(static::ACCOUNT_URI . '?_id='.$id);
+        $http->addHeader($this->api->getApiKey(), 'X-APIKEY');
+
+        try
+        {
+            $http->doRequest();
+        }
+        catch (ClientException $ex)
+        {
+            throw new AccountException("Account not found", 601);
+        }
+
+        $response = $http->getResponse();
+
+        $jsonResponse = json_decode($response);
+
+        if (count($jsonResponse) > 0)
+        {
+            $account = AccountHelper::fill($jsonResponse[0]);
+        }
+        else
+        {
+            throw new AccountException("Account not found", 601);
+        }
+
+        return $account;
     }
 }
