@@ -20,12 +20,9 @@ class iDealController extends BaseController
     {
         iDealHelper::validateInitiateiDealArguments($arguments);
 
-        $http = new RequestHandler();
-        $http->setHttpMethod("POST");
-        $http->setBaseUrl($this->api->getApiEndpoint());
-        $http->setQueryString(static::IDEAL_INITIATE_URI);
-        $http->addHeader($this->api->getApiKey(), "X-APIKEY");
-        $http->setPostParameters($arguments);
+        $http = $this->getInitiateRequestHandler('POST', $this->api->getApiEndpoint(), static::IDEAL_INITIATE_URI,
+            array('X-APIKEY' => $this->api->getApiKey()), $arguments);
+
         $http->doRequest();
 
         $transaction = TransactionHelper::fillTransaction(json_decode($http->getResponse()));

@@ -26,4 +26,33 @@ class BaseController
     {
         $this->api = $api;
     }
+
+    /**
+     * Prepares an instance of RequestHandler for initiating a transaction.
+     *
+     * @param $method
+     * @param $url
+     * @param $query
+     * @param $headers
+     * @param array $arguments
+     * @return RequestHandler
+     */
+    public function getInitiateRequestHandler($method, $url, $query, $headers, $arguments = array())
+    {
+        $http = new RequestHandler();
+        $http->setHttpMethod($method);
+        $http->setBaseUrl($url);
+        $http->setQueryString($query);
+        foreach($headers as $name => $value)
+        {
+            $http->addHeader($value, $name);
+        }
+
+        if ($method === 'POST')
+        {
+            $http->setPostParameters($arguments);
+        }
+
+        return $http;
+    }
 }
