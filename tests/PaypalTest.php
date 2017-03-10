@@ -16,7 +16,7 @@ class PaypalTest extends BaseTest
         ]
     );
 
-    public function testInitiateiDealTransaction()
+    public function testInitiatePaypalTransaction()
     {
         $transaction = $this->client->Paypal->initiate(static::TEST_INITIATE_ARGUMENTS);
 
