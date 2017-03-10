@@ -16,6 +16,7 @@ use SpryngPaymentsApiPhp\Controller\KlarnaController;
 use SpryngPaymentsApiPhp\Controller\OrganisationController;
 use SpryngPaymentsApiPhp\Controller\PaypalController;
 use SpryngPaymentsApiPhp\Controller\SepaController;
+use SpryngPaymentsApiPhp\Controller\SofortController;
 use SpryngPaymentsApiPhp\Controller\TransactionController;
 
 class Client
@@ -89,9 +90,16 @@ class Client
     /**
      * Public instance of the Klarna Controller
      *
-     * @var
+     * @var KlarnaController
      */
     public $Klarna;
+
+    /**
+     * Public instance of the SOFORT controller
+     *
+     * @var SofortController
+     */
+    public $SOFORT;
 
     /**
      * API key to authenticate user
@@ -126,6 +134,7 @@ class Client
         $this->Paypal       = new PaypalController($this);
         $this->Sepa         = new SepaController($this);
         $this->Klarna       = new KlarnaController($this);
+        $this->SOFORT       = new SofortController($this);
     }
 
     /**
