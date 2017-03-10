@@ -20,7 +20,7 @@ class iDealController extends BaseController
     {
         iDealHelper::validateInitiateiDealArguments($arguments);
 
-        $http = $this->getInitiateRequestHandler('POST', $this->api->getApiEndpoint(), static::IDEAL_INITIATE_URI,
+        $http = $this->initiateRequestHandler('POST', $this->api->getApiEndpoint(), static::IDEAL_INITIATE_URI,
             array('X-APIKEY' => $this->api->getApiKey()), $arguments);
 
         $http->doRequest();

@@ -91,6 +91,11 @@ class RequestHandler
         $this->httpClient = new Client();
     }
 
+    /**
+     * Executes the HTTP request
+     *
+     * @throws RequestException
+     */
     public function doRequest()
     {
         switch($this->getHttpMethod())

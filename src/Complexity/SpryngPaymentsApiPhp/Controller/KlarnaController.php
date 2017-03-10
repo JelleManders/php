@@ -25,7 +25,7 @@ class KlarnaController extends BaseController
         KlarnaHelper::validateKlarnaInitializeArguments($arguments);
         $arguments['details']['goods_list'] = KlarnaHelper::parseGoodsList($arguments['details']['goods_list']);
 
-        $http = $this->getInitiateRequestHandler('POST', $this->api->getApiEndpoint(), static::KLARNA_INITIATE_URI,
+        $http = $this->initiateRequestHandler('POST', $this->api->getApiEndpoint(), static::KLARNA_INITIATE_URI,
             array('X-APIKEY' => $this->api->getApiKey()), $arguments);
 
         $http->doRequest();

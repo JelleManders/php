@@ -17,11 +17,9 @@ class OrganisationController extends BaseController
 
     public function getAll()
     {
-        $http = new RequestHandler();
-        $http->setHttpMethod("GET");
-        $http->setBaseUrl($this->api->getApiEndpoint());
-        $http->setQueryString(static::ORGANISATION_URI);
-        $http->addHeader($this->api->getApiKey(), "X-APIKEY");
+        $http = $this->initiateRequestHandler('GET', $this->api->getApiEndpoint(), static::ORGANISATION_URI,
+            array('X-APIKEY' => $this->api->getApiKey()));
+
         $http->doRequest();
 
         $response = json_decode($http->getResponse());

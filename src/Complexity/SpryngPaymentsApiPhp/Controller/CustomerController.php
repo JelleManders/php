@@ -18,10 +18,9 @@ class CustomerController extends BaseController
 
     public function getCustomerById($id)
     {
-        $http = new RequestHandler();
-        $http->setHttpMethod("GET");
-        $http->setBaseUrl($this->api->getApiEndpoint() . self::CUSTOMER_URI . '/' . $id);
-        $http->addHeader($this->api->getApiKey(), 'X-APIKEY');
+        $http = $this->initiateRequestHandler('GET', $this->api->getApiEndpoint(), self::CUSTOMER_URI . '/' . $id,
+            array('X-APIKEY' => $this->api->getApiKey()));
+
         $http->doRequest();
 
         $response = $http->getResponse();
@@ -43,12 +42,9 @@ class CustomerController extends BaseController
     {
         CustomerHelper::validateNewCustomerArguments($arguments);
 
-        $http = new RequestHandler();
-        $http->setHttpMethod("POST");
-        $http->setBaseUrl($this->api->getApiEndpoint());
-        $http->setQueryString(static::CUSTOMER_URI);
-        $http->addHeader($this->api->getApiKey(), 'X-APIKEY');
-        $http->setPostParameters($arguments, false);
+        $http = $this->initiateRequestHandler('POST', $this->api->getApiEndpoint(), static::CUSTOMER_URI,
+            array('X-APIKEY' => $this->api->getApiKey()), $arguments);
+
         $http->doRequest();
 
         $response = $http->getResponse();
@@ -62,12 +58,9 @@ class CustomerController extends BaseController
     {
         CustomerHelper::validateNewCustomerArguments($arguments);
 
-        $http = new RequestHandler();
-        $http->setHttpMethod("POST");
-        $http->setBaseUrl($this->api->getApiEndpoint());
-        $http->setQueryString(static::CUSTOMER_URI . '/' . $id);
-        $http->addHeader($this->api->getApiKey(), 'X-APIKEY');
-        $http->setPostParameters($arguments, false);
+        $http = $this->initiateRequestHandler('POST', $this->api->getApiEndpoint(), static::CUSTOMER_URI . '/' . $id,
+            array('X-APIKEY' => $this->api->getApiKey()), $arguments);
+
         $http->doRequest();
 
         $response = $http->getResponse();

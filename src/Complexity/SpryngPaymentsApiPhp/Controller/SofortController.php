@@ -38,7 +38,7 @@ class SofortController extends BaseController
     {
         SofortHelper::validateInitiateArguments($arguments);
 
-        $http = $this->getInitiateRequestHandler('POST', $this->api->getApiEndpoint(), static::SOFORT_INITIATE_URI,
+        $http = $this->initiateRequestHandler('POST', $this->api->getApiEndpoint(), static::SOFORT_INITIATE_URI,
             array('X-APIKEY' => $this->api->getApiKey()), $arguments);
 
         $http->doRequest();

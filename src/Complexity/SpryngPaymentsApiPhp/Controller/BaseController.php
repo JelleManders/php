@@ -37,7 +37,7 @@ class BaseController
      * @param array $arguments
      * @return RequestHandler
      */
-    public function getInitiateRequestHandler($method, $url, $query, $headers, $arguments = array())
+    public function initiateRequestHandler($method, $url, $query, $headers, $arguments = array())
     {
         $http = new RequestHandler();
         $http->setHttpMethod($method);
