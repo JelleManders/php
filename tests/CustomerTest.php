@@ -20,7 +20,7 @@ class CustomerTest extends BaseTest
 
     private $createdCustomerId;
 
-    public function testGetAccountById()
+    public function testGetCustomerById()
     {
         $customer = $this->client->customer->getCustomerById(self::TEST_CUSTOMER_ID);
 

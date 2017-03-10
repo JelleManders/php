@@ -4,6 +4,7 @@ namespace SpryngPaymentsApiPhp\Controller;
 
 use GuzzleHttp\Exception\ClientException;
 use SpryngPaymentsApiPhp\Exception\AccountException;
+use SpryngPaymentsApiPhp\Exception\RequestException;
 use SpryngPaymentsApiPhp\Helpers\AccountHelper;
 use SpryngPaymentsApiPhp\Client;
 use SpryngPaymentsApiPhp\Utility\RequestHandler;
@@ -64,7 +65,7 @@ class AccountController extends BaseController
         {
             $http->doRequest();
         }
-        catch (ClientException $ex)
+        catch (RequestException $ex)
         {
             throw new AccountException("Account not found", 601);
         }

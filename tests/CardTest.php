@@ -8,7 +8,8 @@ class CardTest extends BaseTest
         'card_number'   => '4024007108173153',
         'cvv'           => '123',
         'expiry_month'  => '12',
-        'expiry_year'   => '17'
+        'expiry_year'   => '17',
+        'organisation'  => ''
     );
 
     public function testCreateCard()
