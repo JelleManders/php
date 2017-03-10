@@ -108,41 +108,52 @@ class RequestHandler
     }
 
     /**
-     * Formats the URL and executes the request
+     * Executes a GET Request
      */
     private function doGetRequest ()
     {
-        $url = $this->getBaseUrl() . $this->getQueryString();
-
-        if ( count( $this->getGetParameters () ) > 0 )
+        try
         {
-            $url .= '?';
-
-            $iterator = 0;
-            foreach ( $this->getGetParameters() as $key => $parameter )
-            {
-                $iterator++;
-                $url .= $key . '=' . $parameter;
-
-                if ( $iterator != count ( $this->getGetParameters() ) )
-                {
-                    $url .= '&';
-                }
-            }
+            $req = $this->httpClient->request('GET', $this->prepareUrl(), [
+                'headers' => $this->getHeaders()
+            ]);
         }
-
-        $req = $this->httpClient->request('GET', $url, [
-            'headers' => $this->getHeaders()
-        ]);
+        catch (ClientException $ex)
+        {
+            $this->handleClientException($ex);
+        }
 
         $this->setResponse((string) $req->getBody());
         $this->setResponseCode($req->getStatusCode());
     }
 
     /**
-     * Executes a POST request
+     * Executes a POST Request
      */
     private function doPostRequest()
+    {
+        try
+        {
+            $req = $this->httpClient->request('POST', $this->prepareUrl(), array(
+                'headers'       => $this->getHeaders(),
+                'json'          => $this->getPostParameters()
+            ));
+        }
+        catch (ClientException $ex)
+        {
+            $this->handleClientException($ex);
+        }
+
+        $this->setResponse((string) $req->getBody());
+        $this->setResponseCode($req->getStatusCode());
+    }
+
+    /**
+     * Prepares the URL by adding query string parameters
+     *
+     * @return string
+     */
+    protected function prepareUrl()
     {
         $url = $this->getBaseUrl() . $this->getQueryString();
 
@@ -163,13 +174,21 @@ class RequestHandler
             }
         }
 
-        $req = $this->httpClient->request('POST', $url, array(
-            'headers'       => $this->getHeaders(),
-            'json'          => $this->getPostParameters()
-        ));
+        return $url;
+    }
 
-        $this->setResponse((string) $req->getBody());
-        $this->setResponseCode($req->getStatusCode());
+    /**
+     * Handles a Guzzle ClientException
+     *
+     * @param ClientException $exception
+     * @throws RequestException
+     */
+    protected function handleClientException(ClientException $exception)
+    {
+        throw new RequestException(sprintf("Request unsuccessful. Response Code: %d Message: %s",
+            $exception->getResponse()->getStatusCode(),
+            $exception->getResponse()->getBody()
+        ), 101);
     }
 
     /**

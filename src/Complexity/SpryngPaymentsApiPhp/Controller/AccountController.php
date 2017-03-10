@@ -8,8 +8,15 @@ use SpryngPaymentsApiPhp\Helpers\AccountHelper;
 use SpryngPaymentsApiPhp\Client;
 use SpryngPaymentsApiPhp\Utility\RequestHandler;
 
+/**
+ * Class AccountController
+ * @package SpryngPaymentsApiPhp\Controller
+ */
 class AccountController extends BaseController
 {
+    /**
+     * @const string The account
+     */
     const ACCOUNT_URI = "/account";
 
     public function __construct(Client $api)
