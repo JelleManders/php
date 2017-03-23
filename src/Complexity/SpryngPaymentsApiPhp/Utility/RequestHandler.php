@@ -24,7 +24,7 @@ class RequestHandler
      *
      * @var Client
      */
-    protected $httpClient;
+    protected $http;
 
     /**
      * The HTTP method used for this request
@@ -88,7 +88,8 @@ class RequestHandler
      */
     public function __construct()
     {
-        $this->httpClient = new Client();
+        $this->http = curl_init();
+        $this->addHeader('SpryngPaymentsPHP/1.1', 'User-Agent');
     }
 
     /**
@@ -98,6 +99,11 @@ class RequestHandler
      */
     public function doRequest()
     {
+        curl_setopt($this->http, CURLOPT_CUSTOMREQUEST, $this->getHttpMethod());
+        curl_setopt($this->http, CURLOPT_URL, $this->prepareUrl());
+        curl_setopt($this->http, CURLOPT_RETURNTRANSFER, true);
+
+
         switch($this->getHttpMethod())
         {
             case 'GET':
@@ -110,6 +116,11 @@ class RequestHandler
                 throw new RequestException("Invalid HTTP method.", 102);
                 break;
         }
+
+        if ($this->getResponseCode() !== 200)
+        {
+            $this->handleUnsuccessfulRequest();
+        }
     }
 
     /**
@@ -117,19 +128,10 @@ class RequestHandler
      */
     private function doGetRequest ()
     {
-        try
-        {
-            $req = $this->httpClient->request('GET', $this->prepareUrl(), [
-                'headers' => $this->getHeaders()
-            ]);
-        }
-        catch (ClientException $ex)
-        {
-            $this->handleClientException($ex);
-        }
-
-        $this->setResponse((string) $req->getBody());
-        $this->setResponseCode($req->getStatusCode());
+        curl_setopt($this->http, CURLOPT_HTTPHEADER, $this->getHeaders());
+        $response = curl_exec($this->http);
+        $this->setResponse($response);
+        $this->setResponseCode(curl_getinfo($this->http, CURLINFO_RESPONSE_CODE));
     }
 
     /**
@@ -137,20 +139,14 @@ class RequestHandler
      */
     private function doPostRequest()
     {
-        try
-        {
-            $req = $this->httpClient->request('POST', $this->prepareUrl(), array(
-                'headers'       => $this->getHeaders(),
-                'json'          => $this->getPostParameters()
-            ));
-        }
-        catch (ClientException $ex)
-        {
-            $this->handleClientException($ex);
-        }
+        $this->addHeader('application/json', 'Content-Type');
+        curl_setopt($this->http, CURLOPT_HTTPHEADER, $this->getHeaders());
+        curl_setopt($this->http, CURLOPT_POST, 1);
+        curl_setopt($this->http, CURLOPT_POSTFIELDS, json_encode($this->getPostParameters()));
 
-        $this->setResponse((string) $req->getBody());
-        $this->setResponseCode($req->getStatusCode());
+        $response = curl_exec($this->http);
+        $this->setResponse($response);
+        $this->setResponseCode(curl_getinfo($this->http, CURLINFO_RESPONSE_CODE));
     }
 
     /**
@@ -183,33 +179,32 @@ class RequestHandler
     }
 
     /**
-     * Handles a Guzzle ClientException
+     * Handles an unsuccessful request
      *
-     * @param ClientException $exception
      * @throws RequestException
      */
-    protected function handleClientException(ClientException $exception)
+    protected function handleUnsuccessfulRequest()
     {
         throw new RequestException(sprintf("Request unsuccessful. Response Code: %d Message: %s",
-            $exception->getResponse()->getStatusCode(),
-            $exception->getResponse()->getBody()
+            $this->getResponseCode(),
+            $this->getResponse()
         ), 101);
     }
 
     /**
      * @return Client
      */
-    public function getHttpClient()
+    public function getHttp()
     {
-        return $this->httpClient;
+        return $this->http;
     }
 
     /**
-     * @param Client $httpClient
+     * @param Client $http
      */
-    public function setHttpClient($httpClient)
+    public function setHttp($http)
     {
-        $this->httpClient = $httpClient;
+        $this->http = $http;
     }
 
     /**
@@ -229,6 +224,11 @@ class RequestHandler
      */
     public function setHttpMethod($httpMethod)
     {
+        switch ($httpMethod)
+        {
+            case 'POST':
+
+        }
         $this->httpMethod = $httpMethod;
     }
 
@@ -387,7 +387,12 @@ class RequestHandler
      */
     public function getHeaders()
     {
-        return $this->headers;
+        $headers = array();
+        foreach($this->headers as $name => $header)
+        {
+            $headers[] = $name . ': ' . $header;
+        }
+        return $headers;
     }
 
     /**
