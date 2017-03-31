@@ -17,6 +17,14 @@ use SpryngPaymentsApiPhp\Utility\RequestHandler;
  */
 class BaseController
 {
+
+    /**
+     * URI for the transaction endpoint
+     *
+     * @const String TRANSACTION_URI
+     */
+    const TRANSACTION_URI = "/transaction";
+
     /**
      * @var Client
      */

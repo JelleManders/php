@@ -15,9 +15,19 @@ class KlarnaController extends BaseController
 
     const KLARNA_PCLASS_URI = "/account/{{ACCOUNT}}/klarna/pclasses";
 
+    const REFUND_TRANSACTION_URI = '/klarna/klarna/refund';
+
     public function __construct(Client $api)
     {
         parent::__construct($api);
+    }
+
+    public function refund($transactionId, $amount = null, $reason = null)
+    {
+        $transactionController = new TransactionController($this->api);
+        $customQuery = self::TRANSACTION_URI . '/'. $transactionId . self::REFUND_TRANSACTION_URI;
+
+        return $transactionController->refund($transactionId, $amount, $reason, $customQuery);
     }
 
     public function initiate(array $arguments)

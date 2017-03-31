@@ -19,9 +19,6 @@ use SpryngPaymentsApiPhp\Utility\RequestHandler;
  */
 class TransactionController extends BaseController
 {
-
-    const TRANSACTION_URI = "/transaction";
-
     const REFUND_TRANSACTION_URI = "/refund";
 
     const ACCOUNT_SEARCH_URI = '/account?_id=';
@@ -74,9 +71,16 @@ class TransactionController extends BaseController
      * @throws TransactionException
      * @throws \SpryngPaymentsApiPhp\Exception\RequestException
      */
-    public function refund($transactionId, $amount = null, $reason = null)
+    public function refund($transactionId, $amount = null, $reason = null, $customQuery = null)
     {
-        $queryString = self::TRANSACTION_URI . '/'. $transactionId . self::REFUND_TRANSACTION_URI;
+        if (is_null($customQuery))
+        {
+            $queryString = self::TRANSACTION_URI . '/'. $transactionId . self::REFUND_TRANSACTION_URI;
+        }
+        else
+        {
+            $queryString = $customQuery;
+        }
         $arguments = array();
 
         if (is_null($amount))

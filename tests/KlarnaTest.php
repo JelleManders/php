@@ -19,6 +19,8 @@ class KlarnaTest extends BaseTest
         ]
     );
 
+    const TEST_KLARNA_REFUND_TRANSACTION_ID = '';
+
     public function testGetPClasses()
     {
         $pclasses = $this->client->Klarna->getPClasses(self::TEST_ACCOUNT_ID);
@@ -45,5 +47,10 @@ class KlarnaTest extends BaseTest
         $transaction = $this->client->Klarna->initiate($arguments);
 
         $this->assertInstanceOf('SpryngPaymentsApiPhp\Object\Transaction', $transaction);
+    }
+
+    public function testRefundKlarnaTransaction()
+    {
+        $this->assertTrue($this->client->Klarna->refund(self::TEST_KLARNA_REFUND_TRANSACTION_ID, 100));
     }
 }
